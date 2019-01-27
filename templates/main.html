@@ -2,6 +2,19 @@
 {%extends "base.html" %}
 
 {% block mainbody %}
-    测试main.html
-    <a id="btn" href="#" class="easyui-linkbutton" data-options="iconCls:'icon-search'">easyui</a>
+    <div data-options="region:'north',border:true" style="height:60px;background:#B3DFDA;padding:10px">
+        北部区域
+    </div>
+    <div data-options="region:'west',split:true,title:'西'" style="width:150px;padding:10px;">
+        西部区域内容
+    </div>
+    <div data-options="region:'east',split:true,collapsed:true,title:'东'" style="width:100px;padding:10px;">
+        中部区域
+    </div>
+    <div data-options="region:'south',border:true" style="height:50px;background:#A9FACD;padding:10px;">
+        南部区域
+    </div>
+    <div data-options="region:'center',title:'中'">
+
+    </div>
 {% endblock %}
