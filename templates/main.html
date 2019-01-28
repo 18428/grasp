@@ -2,11 +2,37 @@
 {%extends "base.html" %}
 
 {% block mainbody %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+        $.ajax({
+            url:'/sc/getMenu/',
+            type:'post',
+            dataType:'json',
+            success:function(data){
+                console.log(data);
+                $('#tt').tree({
+                    data:data,
+                    onClick : function (node) {
+                        console.log(node);
+                        var text = node['text']
+                        console.log(text);
+                    },
+                    onCheck : function (node) {
+
+                    }
+                });
+            },
+            error: function (jqXHR, textStatus, errorThrown) {
+                                alert('失败！');
+                            }
+        });
+    });
+    </script>
     <div data-options="region:'north',border:true" style="height:60px;background:#B3DFDA;padding:10px">
         北部区域
     </div>
-    <div data-options="region:'west',split:true,title:'西'" style="width:150px;padding:10px;">
-        西部区域内容
+    <div data-options="region:'west',split:true,title:'功能菜单'" style="width:260px;padding:10px;">
+        <ul id="tt" class="easyui-tree"></ul>
     </div>
     <div data-options="region:'east',split:true,collapsed:true,title:'东'" style="width:100px;padding:10px;">
         中部区域
