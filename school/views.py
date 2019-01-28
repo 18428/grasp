@@ -22,9 +22,11 @@ def tree_data(pid, tree_list):
             name = t['text']
             children_map['id'] = domain_id
             children_map['text'] = name
-            children_map['state'] = 'closed'
+            children_map['state'] = 'open'
             tree.append(children_map)
-            children_map['children'] = tree_data(domain_id, tree_list)
+            if len(tree_data(domain_id, tree_list)) > 0:
+                children_map['state'] = 'closed'
+                children_map['children'] = tree_data(domain_id, tree_list)
     return tree
 
 
