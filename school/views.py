@@ -43,3 +43,7 @@ def getMenu(request):
 
 def main(request):
     return render(request, 'main.html')
+
+
+def demo(request):
+    return render(request, 'demo.html')
