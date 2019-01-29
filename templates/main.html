@@ -16,17 +16,13 @@
                 type: 'post',
                 dataType: 'json',
                 success: function (data) {
-                    console.log(data);
                     $('#tt').tree({
                         data: data,
-                        onClick: function (node) {
-                            console.log(node);
-                            var text = node['text']
-                            console.log(text);
+                        onClick : function (node) {
+                            var title = node['text'];
+                            var url = '/sc/demo';
+                            addTab(title, url)
                         },
-                        onCheck: function (node) {
-
-                        }
                     });
                 },
                 error: function (jqXHR, textStatus, errorThrown) {
@@ -56,10 +52,6 @@
 </div>
 <div data-options="region:'west',split:true,title:'功能菜单'" style="width:260px;padding:10px;">
     <ul id="tt" class="easyui-tree"></ul>
-    <a href="#" class="easyui-linkbutton" onclick="addTab('demo','/sc/demo')">google</a>
-    <a href="#" class="easyui-linkbutton" onclick="addTab('jquery','http://jquery.com/')">jquery</a>
-    <a href="#" class="easyui-linkbutton" onclick="addTab('easyui','http://jeasyui.com/')">easyui</a>
-
 </div>
 <div data-options="region:'east',split:true,collapsed:true,title:'东'" style="width:100px;padding:10px;">
     中部区域
