@@ -20,8 +20,10 @@ def tree_data(pid, tree_list):
             domain_id = str(t['num'])
             pid = str(t['pid'])
             name = t['text']
+            url = t['url']
             children_map['id'] = domain_id
             children_map['text'] = name
+            children_map['url'] = url
             children_map['state'] = 'open'
             tree.append(children_map)
             if len(tree_data(domain_id, tree_list)) > 0:
@@ -45,5 +47,9 @@ def main(request):
     return render(request, 'main.html')
 
 
-def demo(request):
-    return render(request, 'demo.html')
+def xsgl(request):
+    return render(request, 'xsgl.html')
+
+
+def yhgl(request):
+    return render(request, 'yhgl.html')
