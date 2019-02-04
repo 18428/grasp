@@ -7,7 +7,7 @@ def forwards_func(apps, schema_editor):
     Menu = apps.get_model("school", "Menu")
     db_alias = schema_editor.connection.alias
     Menu.objects.using(db_alias).bulk_create([
-        Menu(num=5, text='权限设置', pid=10, url=''),
+        Menu(num=5, text='权限设置', pid=4, url=''),
     ])
 
 
