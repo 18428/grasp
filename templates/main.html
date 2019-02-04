@@ -52,7 +52,11 @@
 </head>
 <body class="easyui-layout">
 <div data-options="region:'north',border:true" style="height:60px;background:#B3DFDA;padding:10px">
-    北部区域
+    {% if request.session.user_name %}
+        <h4 style='font-family:楷体;color: red'>欢迎：{{ request.session.user_name }} </h4>
+    {% else %}
+        <h3 style='font-family:楷体;'>请重新登陆</h3>
+    {% endif %}
 </div>
 <div data-options="region:'west',split:true,title:'功能菜单'" style="width:260px;padding:10px;">
     <ul id="tt" class="easyui-tree"></ul>

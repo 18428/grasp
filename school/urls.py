@@ -3,6 +3,7 @@ from school import views
 
 urlpatterns = [
     url(r'^login/', views.login),
+    url(r'^sign_in/', views.sign_in),
     url(r'^main/', views.main, name='main'),
     url(r'^getMenu/', views.getMenu),
     url(r'^xsgl/', views.xsgl),
