@@ -10,7 +10,8 @@
     <script type="text/javascript" src="{% static 'jquery-easyui-1-2/jquery.easyui.min.js' %}"></script>
 </head>
 <body>
-login
+<div align="center">
+    <div class="easyui-panel" title="用户登录" style="width:100%;max-width:400px;padding:30px 60px;">
     <table>
         <form action="/sc/sign_in/" method="post">
             {% csrf_token %}
@@ -32,7 +33,10 @@ login
             </tr>
             <tr>
                 <td>
-                    <input type='submit' placeholder="Login" value="登录">
+                    <input class="easyui-linkbutton" style="width:80px" type='submit' placeholder="Login" value="登录">
+                </td>
+                <td>
+                    <input class="easyui-linkbutton" style="width:80px" type='reset' placeholder="Reset" value="重置">
                 </td>
             </tr>
             <tr>
@@ -46,5 +50,7 @@ login
             </tr>
         </form>
     </table>
+</div>
+</div>
 </body>
 </html>
