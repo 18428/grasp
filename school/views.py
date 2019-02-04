@@ -79,7 +79,7 @@ def sign_in(request):
 
 def main(request):
     if request.session.get('user_name', None) == None:
-        errors = ['小老弟你有想法呀,想直接进系统是不存在的！']
+        errors = ['小老弟你有想法呀,想直接进系统是不存在的！老老实实Login去吧！']
         return render(request, 'login.html', {'errors': errors})
     else:
         return render(request, 'main.html')
