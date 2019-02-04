@@ -44,6 +44,35 @@ def getMenu(request):
     return HttpResponse(json.dumps(tree), content_type="application/json")
 
 
+@csrf_exempt
+def data_json_user(request):
+    # res = '{"total":12,"rows":[{"id":1,"username":"admin","password":"admin","sex":"男","age":20},' \
+    #       '{"id":2,"username":"admin","password":"admin","sex":"男","age":20},' \
+    #       '{"id":3,"username":"admin","password":"admin","sex":"男","age":20},' \
+    #       '{"id":4,"username":"admin","password":"admin","sex":"男","age":20},' \
+    #       '{"id":5,"username":"admin","password":"admin","sex":"男","age":20},' \
+    #       '{"id":6,"username":"admin","password":"admin","sex":"男","age":20},' \
+    #       '{"id":7,"username":"admin","password":"admin","sex":"男","age":20},' \
+    #       '{"id":8,"username":"admin","password":"admin","sex":"男","age":20},' \
+    #       '{"id":9,"username":"admin","password":"admin","sex":"男","age":20},' \
+    #       '{"id":10,"username":"admin","password":"admin","sex":"男","age":20},' \
+    #       '{"id":11,"username":"admin","password":"admin","sex":"男","age":20},' \
+    #       '{"id":12,"username":"admin","password":"admin","sex":"男","age":20}]}'
+
+    page = int(request.GET.get("page"))
+    rows = int(request.GET.get("rows"))
+    list = User.objects.all()
+    total = len(list)
+    user = serializers.serialize("json", list[rows*(page-1):rows*page])
+    users = []
+    for r in json.loads(user):
+        ra = r['fields']
+        users.append(ra)
+    resList = {"total": total, "rows": users}
+    ulist = json.dumps(resList)
+    return HttpResponse(ulist)
+
+
 def login(request):
     errors = []
     return render(request, 'login.html', {'errors': errors})
