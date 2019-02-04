@@ -67,7 +67,8 @@ def sign_in(request):
                 # if user.is_active:
                 # 数据库相比其他存储session的方式慢一点，所以可以配置django来存储session到文件系统或者缓存中
                 request.session['user_name'] = user_name
-                request.session.set_expiry(600)
+                # 单位秒
+                request.session.set_expiry(1)
                 return render(request, 'main.html', {'user_name': user_name})
                 # else:
                 #     errors.append('用户名错误')
@@ -77,7 +78,11 @@ def sign_in(request):
 
 
 def main(request):
-    return render(request, 'main.html')
+    if request.session.get('user_name', None) == None:
+        errors = ['小老弟你有想法呀?']
+        return render(request, 'login.html', {'errors': errors})
+    else:
+        return render(request, 'main.html')
 
 
 def xsgl(request):
