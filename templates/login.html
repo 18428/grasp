@@ -11,5 +11,40 @@
 </head>
 <body>
 login
+    <table>
+        <form action="/sc/sign_in/" method="post">
+            {% csrf_token %}
+            <tr>
+                <td>
+                    <label >用户名:</label>
+                </td>
+                <td>
+                    <input type='text' placeholder="输入用户名" name='user_name'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <label >密码:</label>
+                </td>
+                <td>
+                    <input type='password' placeholder="输入密码" name='user_password'>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type='submit' placeholder="Login" value="登录">
+                </td>
+            </tr>
+            <tr>
+                {% if errors %}
+                    {% for error in errors %}
+                         <p style="color: red;">
+                            {{error}}
+                         </p>
+                    {% endfor %}
+                {% endif %}
+            </tr>
+        </form>
+    </table>
 </body>
 </html>

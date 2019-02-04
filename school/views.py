@@ -1,6 +1,6 @@
 from django.core import serializers
 import json
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.shortcuts import render
 
 # Create your views here.
@@ -10,6 +10,7 @@ from django.shortcuts import render
 from django.views.decorators.csrf import csrf_exempt
 
 from school import models
+from school.models import User
 
 
 def tree_data(pid, tree_list):
@@ -44,11 +45,44 @@ def getMenu(request):
 
 
 def login(request):
-    return render(request, 'login.html')
+    errors = []
+    return render(request, 'login.html', {'errors': errors})
+
+
+@csrf_exempt
+def sign_in(request):
+    errors = []
+    user_name = None
+    user_password = None
+    if request.method == "POST":
+        if not request.POST.get('user_name') or not request.POST.get('user_password'):
+            errors.append('用户名或着密码不能为空！')
+        else:
+            user_name = request.POST.get('user_name')
+            user_password = request.POST.get('user_password')
+        if user_name is not None and user_password is not None:
+            # 如果后续需要用user中的数据可以使用get获取，QuerySet不知道怎么得到里面的值
+            user = User.objects.filter(user_name=user_name, user_password=user_password)
+            if len(user) != 0:
+                # if user.is_active:
+                # 数据库相比其他存储session的方式慢一点，所以可以配置django来存储session到文件系统或者缓存中
+                request.session['user_name'] = user_name
+                # 单位秒
+                request.session.set_expiry(1)
+                return render(request, 'main.html', {'user_name': user_name})
+                # else:
+                #     errors.append('用户名错误')
+            else:
+                errors.append('用户名活着密码错误！')
+    return render(request, 'login.html', {'errors': errors})
 
 
 def main(request):
-    return render(request, 'main.html')
+    if request.session.get('user_name', None) == None:
+        errors = ['小老弟你有想法呀?']
+        return render(request, 'login.html', {'errors': errors})
+    else:
+        return render(request, 'main.html')
 
 
 def xsgl(request):
