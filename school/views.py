@@ -43,6 +43,10 @@ def getMenu(request):
     return HttpResponse(json.dumps(tree), content_type="application/json")
 
 
+def login(request):
+    return render(request, 'login.html')
+
+
 def main(request):
     return render(request, 'main.html')
 
