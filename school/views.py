@@ -45,6 +45,21 @@ def getMenu(request):
 
 
 @csrf_exempt
+def new_submit(request):
+    user_id = request.POST.get("user_id")
+    user_name = request.POST.get("user_name")
+    user_password = request.POST.get("user_password")
+    user_key = request.POST.get("user_key")
+    try:
+        user = User.objects.create(user_id=user_id, user_name=user_name, user_password=user_password, user_key=user_key)
+        return_dict = {'success': 'success'}
+    except:
+        # 可以报个异常
+        return_dict = {'failed': 'failed'}
+    return HttpResponse(json.dumps(return_dict), content_type="application/json")
+
+
+@csrf_exempt
 def data_json_user(request):
     # res = '{"total":12,"rows":[{"id":1,"username":"admin","password":"admin","sex":"男","age":20},' \
     #       '{"id":2,"username":"admin","password":"admin","sex":"男","age":20},' \

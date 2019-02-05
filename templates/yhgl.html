@@ -35,11 +35,35 @@
     <table id="user_dg" class="easyui-datagrid" title="用户管理"
             data-options="rownumbers:true,singleSelect:true,method:'get',toolbar:toolbar,fit:true">
     </table>
+    <div id="new_dlg" class="easyui-dialog" style="width:600px" closed="true" buttons="#dlg-buttons">
+        <form id="new_fm" method="post" novalidate style="margin:0;padding:20px 50px">
+            <div style="margin-bottom:20px;font-size:20px;border-bottom:1px solid #ccc">用户信息</div>
+            <div style="margin-bottom:10px">
+                <input id="user_id" name="user_id" class="easyui-textbox" required="true" label="用户编号:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input id="user_name" name="user_name" class="easyui-textbox" required="true" label="用户名:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input id="user_password" name="user_password" class="easyui-textbox" required="true" label="用户密码:" style="width:100%">
+            </div>
+            <div style="margin-bottom:10px">
+                <input id="user_key" name="user_key" class="easyui-textbox" required="true" label="系统内码:" style="width:100%">
+            </div>
+        </form>
+        <div style="text-align:center;padding:5px 0">
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="new_submit()" style="width:80px">保存</a>
+            <a href="javascript:void(0)" class="easyui-linkbutton" onclick="clearForm()" style="width:80px">取消/重置</a>
+        </div>
+    </div>
     <script type="text/javascript">
         var toolbar = [{
             text:'新增',
             iconCls:'icon-add',
-            handler:function(){alert('add')}
+            handler:function(){
+                $('#new_dlg').dialog('open').dialog('center').dialog('setTitle','用户新增');
+                $('#new_fm').form('clear');
+            }
         },{
             text:'删除',
             iconCls:'icon-cut',
@@ -49,6 +73,40 @@
             iconCls:'icon-save',
             handler:function(){alert('save')}
         }];
+        function new_submit() {
+            var user_id = document.getElementById("user_id").value;
+            var user_name = document.getElementById("user_name").value;
+            var user_password = document.getElementById("user_password").value;
+            var user_key = document.getElementById("user_key").value;
+            if(user_id==null){
+
+            }else if(user_name==null){
+
+            }else if(user_password==null){
+
+            }else if(user_key==null){
+
+            }else {
+                $.ajax({
+                    url: '/sc/new_submit/',
+                    type: 'POST',
+                    dataType: 'json',
+                    data: {
+                        'user_id': user_id,
+                        'user_name': user_name,
+                        'user_password': user_password,
+                        'user_key': user_key,
+                    },
+                    success: function (data) {
+                        $('#new_dlg').dialog('close');
+                        alert("success");
+                    },
+                    error: function (jqXHR, textStatus, errorThrown) {
+                        alert('failed');
+                    }
+                });
+            }
+        }
     </script>
 </body>
 </html>
