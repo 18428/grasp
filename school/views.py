@@ -135,3 +135,16 @@ def xsgl(request):
 
 def yhgl(request):
     return render(request, 'yhgl.html')
+
+
+from jinja2 import Environment, FileSystemLoader
+
+
+def generate():
+    env = Environment(loader=FileSystemLoader('./'))
+    tpl = env.get_template('models.txt')
+    model = 'demo.py'
+    with open(model, 'w+') as fout:
+        render_content = tpl.render()
+        fout.write(render_content)
+
